@@ -1,1 +1,0 @@
-fonts library to display all my favorites fonts, and try them quickly

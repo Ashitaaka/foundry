@@ -1,3 +1,22 @@
+:root {
+    --dark-color: #1D1E22;
+    --light-color: #FFF;
+    --background-color: #D9DCDC;
+    --gradient-first:
+        linear-gradient(135deg, #5AFE87, 45%, #23B1FE, #5983ff);
+    --gradient-second:
+        linear-gradient(45deg, rgb(137, 73, 241), rgb(253, 101, 151), rgb(234, 58, 55));
+    --gradient-third:
+        linear-gradient(-45deg, rgb(237, 225, 86), 30%, #fe6823, 70%, rgb(86, 239, 224));
+}
+
+@font-face {
+    font-family: 'fiasco';
+    src: url(./fonts/Fiasco-100.otf) format('opentype'), weight: 100;
+    src: url(./fonts/Fiasco-700.otf) format('opentype'), weight: 700;
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -5,12 +24,280 @@
 }
 
 body {
-    background-color: #000000;
-    height: 100vh;
+    background-color: var(--background-color);
+    /* I specify font-size regarding the width of the screen */
+    font-size: 1.2vw;
+    font-family: sans-serif;
 }
 
-section {
-    background-color: #F1F1F1;
-    height: 100px;
-    width: 100%;
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+    transform-origin: top right;
+    transform: skewY(-5deg);
+    margin: 3.5% 4% 0 6.5%;
 }
+
+/* I want every cards size to be a ratio of 100*150, so I put a padding-top of 150% (and the width is naturaly 100%)*/
+.cards {
+    background-color: var(--light-color);
+    padding-top: 150%;
+    position: relative;
+    border-radius: 0.5rem;
+    transform-origin: top left;
+    transform: rotate(5deg) skewY(5deg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all ease-in-out 0.3s;
+    transition-property: z-index, transform;
+    cursor: pointer;
+}
+
+.content,
+h2,
+h1,
+p,
+img {
+    position: absolute;
+}
+
+.content {
+    position: absolute;
+    background: var(--light-color);
+    height: 84%;
+    width: 82%;
+    z-index: 2;
+    transform: translateX(11%) translateY(-109%);
+}
+
+h1 {
+    color: var(--dark-color);
+    line-height: 0.6em;
+    font-size: 10em;
+    font-weight: 700;
+    text-align: center;
+    top: 20%;
+    left: 18%;
+    transition: ease-in-out 0.25s;
+    transition-property: transform;
+}
+
+h2,
+p {
+    background-color: white;
+    text-align: center;
+    font-weight: 100;
+}
+
+h2 {
+    font-size: 1.3em;
+    line-height: 1.3em;
+    width: 156%;
+    transform: rotateZ(-45deg);
+    top: 46%;
+    left: -28%;
+    transition: ease-in-out 0.35s;
+    transition-property: opacity;
+}
+
+p {
+    font-size: 1.6em;
+    padding: 0.2em 0.3em;
+}
+
+
+p:nth-child(2n) {
+    top: -4%;
+    left: -5%;
+}
+
+p:nth-child(2n+1) {
+    bottom: -4%;
+    right: -5%;
+    transform: rotateZ(-180deg);
+}
+
+.card-1 h1,
+.card-1 p {
+    font-family: 'fiasco', sans-serif;
+
+}
+
+
+
+.cards:hover {
+    transform: translate(-28%, -15%) rotate(0) skewY(5deg) scale(1.4);
+    z-index: 100;
+    /* background-color: var(--dark-color); */
+}
+
+.cards:hover:nth-child(3n) .content {
+    background: var(--gradient-first);
+}
+
+.cards:hover:nth-child(3n+1) .content {
+    background: var(--gradient-third);
+}
+
+.cards:hover:nth-child(3n+2) .content {
+    background: var(--gradient-second);
+}
+
+.cards:hover h1 {
+    color: var(--light-color);
+    transform: scale(1.1);
+}
+
+.cards:hover h2 {
+    opacity: 0;
+}
+
+/*----------------MEDIA QUERIES----------------*/
+
+@media screen and (max-width:1024px) {
+    body {
+        font-size: 1.4vw;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(4, 1fr);
+        margin: 4% 5% 0 8%;
+    }
+}
+
+@media screen and (max-width:760px) {
+    body {
+        font-size: 1.8vw;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(3, 1fr);
+        margin: 5% 6% 0 10%;
+    }
+}
+
+@media screen and (max-width:540px) {
+    body {
+        font-size: 2.6vw;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 6.5% 7% 0 13%;
+    }
+}
+
+@media screen and (max-width:370px) {
+    body {
+        font-size: 4.7vw;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(1, 1fr);
+        margin: 9.5% 10% 0 21%;
+    }
+}
+
+/* .cards:hover p {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+} */
+
+/* img {
+    z-index: 5;
+    transition: all ease-in-out 0.35s;
+
+}
+
+img:nth-child(2n) {
+    width: 100%;
+    transform: rotateZ(-45deg);
+    right: 18%;
+    top: 4%
+}
+
+img:nth-child(2n+1) {
+    width: 100%;
+    transform: rotateZ(135deg);
+    bottom: 4%;
+    left: 18%;
+} 
+
+.cards:hover img:nth-child(2n) {
+    transform: rotateZ(-45deg) scale(1.25);
+    right: 22%;
+    top: 8%;
+}
+
+.cards:hover img:nth-child(2n+1) {
+    transform: rotateZ(135deg) scale(0.75);
+    bottom: 1%;
+    left: 18%;
+} */
+
+
+
+/* 
+.card {
+    position: relative;
+    transform-origin: top left;
+    background-color: #fff;
+    padding-top: 150%;
+    box-shadow: 0 0 10px #000000;
+    border-radius: 1em;
+    transform: rotateZ(15deg) skewY(5deg);
+}
+
+.content {
+    position: absolute;
+    width: 96%;
+    background-color: #C1C1C1;
+    height: 100%;
+}
+
+h2 {
+    position: absolute;
+    text-align: center;
+    background-color: #FFF;
+    font-size: 0.95rem;
+    font-weight: 100;
+    width: 122%;
+    padding: 0.1em 0;
+    letter-spacing: 0.1rem;
+    transform: rotate(-45deg) translateY(175%) translateX(-47%);
+    text-transform: uppercase;
+}
+
+p {
+    position: absolute;
+    text-align: center;
+    background-color: #FFF;
+    padding: 2%;
+    font-size: 1.2rem;
+}
+
+p:nth-child(2n) {
+    left: 5%;
+    top: 10%;
+}
+
+p:nth-child(2n+1) {
+    right: 5%;
+    bottom: 10%;
+    transform: rotate(-180deg);
+}
+
+img {
+    position: absolute;
+}
+
+img:nth-child(2n) {
+    width: 90%;
+    transform: translateX(-27%) translateY(-25%) rotate(-45deg);
+}
+
+img:nth-child(2n+1) {
+    width: 90%;
+    transform: translateX(3%) translateY(125%) rotate(135deg);
+} */
